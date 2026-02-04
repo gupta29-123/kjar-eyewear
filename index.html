@@ -4,47 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KJAR EYEWEAR | Official Catalog</title>
-    <meta name="keywords" content="KJAR, KJAR Eyewear, KJ8301, KJ7202, KJ3200, Metal Frames, Titanium Spectacles, Nagina Eyewear Shop">
-     <meta name="author" content="KJAR Eyewear">
-    <meta name="description" content="KJAR Eyewear Official Catalog. Search premium frames by model numbers like KJ8301, KJ7202.">
     
+    <meta name="description" content="KJAR Eyewear Official Catalog. High-quality frames and spectacles. Search models like KJ8301, KJ7202.">
+    <meta name="keywords" content="KJAR, KJAR Eyewear, KJ8301, KJ7202, KJ3200, Eyewear Catalog, Nagina Optical Shop, Spectacles">
+    <meta name="author" content="KJAR Eyewear">
+    
+    <link rel="icon" type="image/png" href="logo.png">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
-        body { background-color: #f4f4f4; font-family: 'Arial', sans-serif; }
-        .brand-header { background: #000; color: #fff; padding: 40px 0; text-align: center; margin-bottom: 30px; }
+        body { background-color: #f8f9fa; font-family: 'Segoe UI', sans-serif; }
+        
+        .brand-header { 
+            background: #000; 
+            color: #fff; 
+            padding: 50px 0; 
+            text-align: center; 
+            margin-bottom: 30px; 
+        }
+        
+        .main-logo {
+            max-height: 120px;
+            width: auto;
+            margin-bottom: 20px;
+            filter: drop-shadow(0px 0px 5px rgba(255,255,255,0.2));
+        }
+
         .product-card { 
             border: none; 
-            border-radius: 12px; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
-            transition: 0.3s;
+            border-radius: 15px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+            transition: 0.3s ease-in-out;
             background: #fff;
             overflow: hidden;
         }
-        .product-card:hover { transform: translateY(-8px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
+        
+        .product-card:hover { 
+            transform: translateY(-10px); 
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15); 
+        }
+        
         .card-img-top { 
-            height: 250px; 
+            height: 280px; 
             object-fit: contain; 
-            padding: 15px;
+            padding: 20px;
             background: #fff;
             cursor: pointer;
         }
-        .search-area { max-width: 500px; margin: -30px auto 40px; }
-        .search-bar { border-radius: 25px; padding: 12px 20px; border: 2px solid #ddd; }
-        .model-title { font-weight: bold; color: #000; font-size: 1.2rem; }
-        .category-text { color: #666; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+        
+        .search-area { max-width: 550px; margin: -35px auto 50px; }
+        
+        .search-bar { 
+            border-radius: 50px; 
+            padding: 15px 30px; 
+            border: 2px solid #fff; 
+            font-size: 1.1rem;
+        }
+
+        .model-title { font-weight: 800; color: #1a1a1a; font-size: 1.3rem; }
+        .category-text { color: #888; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; }
     </style>
 </head>
 <body>
 
 <div class="brand-header">
-    <h1 class="display-5 fw-bold">KJAR EYEWEAR</h1>
-    <p>Premium Quality Eyewear Collection</p>
+    <img src="logo.png" alt="KJAR Eyewear Logo" class="main-logo" onerror="this.style.display='none'">
+    
+    <h1 class="display-4 fw-bold">KJAR EYEWEAR</h1>
+    <p class="lead">Premium Quality Frames & Spectacles</p>
 </div>
 
 <div class="container">
     <div class="search-area">
-        <input type="text" id="searchInput" class="form-control search-bar shadow" 
-               placeholder="Search Model (e.g. KJ8301)..." onkeyup="searchModels()">
+        <input type="text" id="searchInput" class="form-control search-bar shadow-lg" 
+               placeholder="Search Model No. (e.g. 8301)..." onkeyup="searchModels()">
     </div>
 
     <div class="row" id="productGrid">
@@ -56,7 +89,7 @@
 <script>
     let inventoryData = [];
 
-    // 1. CSV Data Load Karna
+    // 1. CSV Data Fetching
     Papa.parse("kjar_database.csv", {
         download: true,
         header: true,
@@ -67,7 +100,7 @@
         }
     });
 
-    // 2. Display Logic (Price Code Hata Diya Gaya Hai)
+    // 2. Display Logic
     function renderGallery(items) {
         const grid = document.getElementById('productGrid');
         grid.innerHTML = '';
@@ -76,25 +109,25 @@
             if(item.Model_No) {
                 const model = item.Model_No.trim();
                 
-                // Option 2: Images main folder mein hain
+                // Images main folder mein hain (Option 2)
                 const mainImg = `${model}.jpg`;
                 const colorImg = `${model}_colors.jpg`;
 
                 grid.innerHTML += `
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card product-card h-100">
+                    <div class="col-lg-4 col-md-6 mb-5">
+                        <div class="card product-card h-100 text-center">
                             <img src="${mainImg}" 
                                  class="card-img-top" 
-                                 alt="${model}"
+                                 alt="KJAR Eyewear Model ${model}"
                                  onmouseover="this.src='${colorImg}'"
                                  onmouseout="this.src='${mainImg}'"
-                                 onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300?text=${model}'">
+                                 onerror="this.onerror=null; this.src='https://via.placeholder.com/400x300?text=Model+${model}'">
                             
-                            <div class="card-body text-center border-top">
-                                <p class="category-text mb-1">${item.Category || 'Collection'}</p>
+                            <div class="card-body border-top">
+                                <p class="category-text mb-1">${item.Category || 'Premium Collection'}</p>
                                 <h5 class="model-title mb-2">${model}</h5>
-                                <p class="text-muted mb-0">Size: ${item.Size || 'Standard'}</p>
-                                </div>
+                                <p class="text-muted mb-0"><strong>Size:</strong> ${item.Size || 'Standard'}</p>
+                            </div>
                         </div>
                     </div>
                 `;
@@ -102,11 +135,12 @@
         });
     }
 
-    // 3. Search Functionality
+    // 3. Optimized Search
     function searchModels() {
         const term = document.getElementById('searchInput').value.toUpperCase();
         const filtered = inventoryData.filter(i => 
-            i.Model_No.toUpperCase().includes(term)
+            i.Model_No.toUpperCase().includes(term) || 
+            (i.Category && i.Category.toUpperCase().includes(term))
         );
         renderGallery(filtered);
     }
@@ -114,4 +148,3 @@
 
 </body>
 </html>
-
